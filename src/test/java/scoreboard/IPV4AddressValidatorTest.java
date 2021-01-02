@@ -58,4 +58,14 @@ public class IPV4AddressValidatorTest {
         assertThat(isValid, is(false));
     }
 
+    @Test
+    public void should_check_that_ip_has_valid_octets() {
+        boolean isValid = IPV4AddressValidator.isHostAssignable("300.1.1.1");
+
+        assertThat(isValid, is(false));
+    }
+
+    @Ignore
+    public void validate_IP_has_no_leading_zeros(){}
+
 }
