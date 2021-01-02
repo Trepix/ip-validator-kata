@@ -1,6 +1,5 @@
 package scoreboard;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -66,15 +65,18 @@ public class IPV4AddressValidatorTest {
             "1.255.500.1",
             "1.1.1.256",
     })
-    public void should_check_that_ip_has_valid_octets(String ip) {
+    public void should_check_IP_has_valid_octets(String ip) {
         boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
 
         assertThat(isValid, is(false));
     }
 
     @Test
-    @Disabled
-    public void validate_IP_has_no_leading_zeros(){}
+    public void should_check_IP_has_no_leading_zeros(){
+        boolean isValid = IPV4AddressValidator.isHostAssignable("001.1.1.1");
+
+        assertThat(isValid, is(false));
+    }
 
     @Test
     @Disabled

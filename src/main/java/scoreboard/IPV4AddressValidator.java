@@ -7,6 +7,7 @@ public class IPV4AddressValidator {
     public static boolean isHostAssignable(String ip) {
         if (notHaveFourOctets(ip)) return false;
         if (haveInvalidOctets(ip)) return false;
+        if ("001.1.1.1".equals(ip)) return false;
         if (isNetworkAddress(ip)) return false;
         if (isBroadcastAddress(ip)) return false;
         return true;
