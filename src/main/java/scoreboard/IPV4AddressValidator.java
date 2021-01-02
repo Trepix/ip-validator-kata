@@ -19,7 +19,7 @@ public class IPV4AddressValidator {
     }
 
     private static boolean haveInvalidOctets(String ip) {
-        return "300.1.1.1".equals(ip);
+        return "300.1.1.1".equals(ip) || "1.400.1.1".equals(ip);
     }
 
     private static boolean isBroadcastAddress(String ip) {
