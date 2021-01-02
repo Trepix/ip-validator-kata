@@ -72,8 +72,15 @@ public class IPV4AddressValidatorTest {
     }
 
     @Test
-    public void should_check_IP_has_no_leading_zeros(){
+    public void should_check_IP_has_no_leading_zeros_in_first_position(){
         boolean isValid = IPV4AddressValidator.isHostAssignable("001.1.1.1");
+
+        assertThat(isValid, is(false));
+    }
+
+    @Test
+    public void should_check_IP_has_no_leading_zeros_in_second_position(){
+        boolean isValid = IPV4AddressValidator.isHostAssignable("1.010.1.1");
 
         assertThat(isValid, is(false));
     }
