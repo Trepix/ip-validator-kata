@@ -7,10 +7,19 @@ public class IPV4AddressValidator {
     public static boolean isHostAssignable(String ip) {
         if (notHaveFourOctets(ip)) return false;
         if (haveInvalidOctets(ip)) return false;
-        if ("001.1.1.1".equals(ip) || "1.010.1.1".equals(ip)) return false;
+        if (haveLeadingZeros(ip)) return false;
         if (isNetworkAddress(ip)) return false;
         if (isBroadcastAddress(ip)) return false;
         return true;
+    }
+
+    private static boolean haveLeadingZeros(String ip) {
+        String[] octets = getOctets(ip);
+        return numberHasLeadingZero(octets[0]) || numberHasLeadingZero(octets[1]);
+    }
+
+    private static boolean numberHasLeadingZero(String number) {
+        return Integer.parseInt(number) != 0 && number.startsWith("0");
     }
 
     private static boolean notHaveFourOctets(String ip) {
