@@ -74,7 +74,8 @@ public class IPV4AddressValidatorTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "001.1.1.1",
-            "1.010.1.1"
+            "1.010.1.1",
+            "1.1.0100.1"
     })
     public void should_check_IP_has_no_leading_zeros(String ip) {
         boolean isValid = IPV4AddressValidator.isHostAssignable(ip);

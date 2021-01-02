@@ -15,7 +15,7 @@ public class IPV4AddressValidator {
 
     private static boolean haveLeadingZeros(String ip) {
         String[] octets = getOctets(ip);
-        return numberHasLeadingZero(octets[0]) || numberHasLeadingZero(octets[1]);
+        return numberHasLeadingZero(octets[0]) || numberHasLeadingZero(octets[1]) || numberHasLeadingZero(octets[2]);
     }
 
     private static boolean numberHasLeadingZero(String number) {
