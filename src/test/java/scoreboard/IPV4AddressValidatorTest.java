@@ -13,4 +13,11 @@ public class IPV4AddressValidatorTest {
 
         assertThat(isValid, is(true));
     }
+
+    @Test
+    public void should_consider_as_valid_another_host_assignable_ip() {
+        boolean isValid = IPV4AddressValidator.isHostAssignable("192.168.1.1");
+
+        assertThat(isValid, is(true));
+    }
 }
