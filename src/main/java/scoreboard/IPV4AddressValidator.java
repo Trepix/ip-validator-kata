@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 public class IPV4AddressValidator {
 
     public static boolean isHostAssignable(String ip) {
-        if (notHaveFourOctets(ip)) return false;
+        if (haveNotFourOctets(ip)) return false;
         if (haveInvalidOctets(ip)) return false;
         if (haveLeadingZeros(ip)) return false;
         if (isNetworkAddress(ip)) return false;
@@ -14,15 +14,11 @@ public class IPV4AddressValidator {
     }
 
     private static boolean haveLeadingZeros(String ip) {
-        String[] octets = getOctets(ip);
-        return numberHasLeadingZero(octets[0]) || numberHasLeadingZero(octets[1]) || numberHasLeadingZero(octets[2]) || numberHasLeadingZero(octets[3]);
+        String[] numbers = getOctets(ip);
+        return Stream.of(numbers).anyMatch(Number::hasLeadingZeros);
     }
 
-    private static boolean numberHasLeadingZero(String number) {
-        return Integer.parseInt(number) != 0 && number.startsWith("0");
-    }
-
-    private static boolean notHaveFourOctets(String ip) {
+    private static boolean haveNotFourOctets(String ip) {
         String[] octets = getOctets(ip);
         return octets.length != 4;
     }
@@ -47,6 +43,12 @@ public class IPV4AddressValidator {
     static class Octet {
         static boolean isValid(String octet) {
             return Integer.parseInt(octet) > 255;
+        }
+    }
+
+    static class Number {
+        static boolean hasLeadingZeros(String number) {
+            return Integer.parseInt(number) != 0 && number.startsWith("0");
         }
     }
 }
