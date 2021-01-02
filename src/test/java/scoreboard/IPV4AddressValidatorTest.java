@@ -33,5 +33,12 @@ public class IPV4AddressValidatorTest {
         assertThat(isValid, is(false));
     }
 
+    @Test
+    public void should_consider_as_invalid_a_broadcast_address() {
+        boolean isValid = IPV4AddressValidator.isHostAssignable("255.255.255.255");
+
+        assertThat(isValid, is(false));
+    }
+
 
 }
