@@ -20,7 +20,7 @@ public class IPV4AddressValidator {
 
     private static boolean haveInvalidOctets(String ip) {
         String[] octets = getOctets(ip);
-        return isInvalidValidOctet(octets[0]) || isInvalidValidOctet(octets[1]) || isInvalidValidOctet(octets[2]);
+        return isInvalidValidOctet(octets[0]) || isInvalidValidOctet(octets[1]) || isInvalidValidOctet(octets[2]) || isInvalidValidOctet(octets[3]);
     }
 
     private static boolean isInvalidValidOctet(String octet) {

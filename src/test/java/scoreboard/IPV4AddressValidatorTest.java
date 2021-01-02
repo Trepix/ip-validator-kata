@@ -59,23 +59,15 @@ public class IPV4AddressValidatorTest {
         assertThat(isValid, is(false));
     }
 
-    @Test
-    public void should_check_that_ip_has_valid_octet_in_first_octet_position() {
-        boolean isValid = IPV4AddressValidator.isHostAssignable("300.1.1.1");
-
-        assertThat(isValid, is(false));
-    }
-
-    @Test
-    public void should_check_that_ip_has_valid_octets_in_second_octet_position() {
-        boolean isValid = IPV4AddressValidator.isHostAssignable("1.400.1.1");
-
-        assertThat(isValid, is(false));
-    }
-
-    @Test
-    public void should_check_that_ip_has_valid_octets_in_third_octet_position() {
-        boolean isValid = IPV4AddressValidator.isHostAssignable("1.255.500.1");
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "300.1.1.1",
+            "1.400.1.1",
+            "1.255.500.1",
+            "1.1.1.256",
+    })
+    public void should_check_that_ip_has_valid_octets(String ip) {
+        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
 
         assertThat(isValid, is(false));
     }
