@@ -2,9 +2,15 @@ package scoreboard;
 
 public class IPV4AddressValidator {
     public static boolean isHostAssignable(String ip) {
+        String[] octets = getOctets(ip);
+        if (octets.length < 4) return false;
         if (isNetworkAddress(ip)) return false;
         if (isBroadcastAddress(ip)) return false;
         return true;
+    }
+
+    private static String[] getOctets(String ip) {
+        return ip.split("\\.");
     }
 
     private static boolean isBroadcastAddress(String ip) {

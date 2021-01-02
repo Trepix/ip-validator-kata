@@ -44,5 +44,15 @@ public class IPV4AddressValidatorTest {
         assertThat(isValid, is(false));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1",
+            "1.1.1",
+    })
+    public void should_consider_as_invalid_IP_with_less_than_four_octets(String ip) {
+        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
+
+        assertThat(isValid, is(false));
+    }
 
 }
