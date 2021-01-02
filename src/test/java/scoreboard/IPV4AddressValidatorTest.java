@@ -22,10 +22,16 @@ public class IPV4AddressValidatorTest {
         assertThat(isValid, is(true));
     }
 
-    @Test
-    public void should_consider_as_invalid_a_network_IP() {
-        boolean isValid = IPV4AddressValidator.isHostAssignable("0.0.0.0");
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "0.0.0.0",
+            "255.255.255.0"
+    })
+    public void should_consider_as_invalid_a_network_IP(String ip) {
+        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
 
         assertThat(isValid, is(false));
     }
+
+
 }
