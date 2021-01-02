@@ -74,7 +74,6 @@ public class IPV4AddressValidatorTest {
     }
 
     @Test
-    @Disabled
     public void should_check_that_ip_has_valid_octets_in_third_octet_position() {
         boolean isValid = IPV4AddressValidator.isHostAssignable("1.255.500.1");
 
