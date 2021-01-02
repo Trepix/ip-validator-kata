@@ -85,7 +85,10 @@ public class IPV4AddressValidatorTest {
     }
 
     @Test
-    @Disabled
-    public void validate_IP_has_no_other_characters_than_numbers(){}
+    public void validate_IP_has_no_other_characters_than_numbers(){
+        boolean isValid = IPV4AddressValidator.isHostAssignable("-192.168.1.1");
+
+        assertThat(isValid, is(false));
+    }
 
 }

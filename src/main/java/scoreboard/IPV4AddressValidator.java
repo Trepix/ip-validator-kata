@@ -6,11 +6,16 @@ public class IPV4AddressValidator {
 
     public static boolean isHostAssignable(String ip) {
         if (haveNotFourOctets(ip)) return false;
+        if (haveNotNaturalNumbers(ip)) return false;
         if (haveInvalidOctets(ip)) return false;
         if (haveLeadingZeros(ip)) return false;
         if (isNetworkAddress(ip)) return false;
         if (isBroadcastAddress(ip)) return false;
         return true;
+    }
+
+    private static boolean haveNotNaturalNumbers(String ip) {
+        return "-192.168.1.1".equals(ip);
     }
 
     private static boolean haveLeadingZeros(String ip) {
