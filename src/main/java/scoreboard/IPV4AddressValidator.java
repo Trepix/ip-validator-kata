@@ -18,8 +18,7 @@ public class IPV4AddressValidator {
 
     private static boolean haveNotNaturalNumbers(String ip) {
         String[] numbers = getOctets(ip);
-        return !(isNumeric(numbers[1])) || "-192.168.1.1".equals(ip);
-
+        return !(isNumeric(numbers[1]));
     }
 
 
@@ -39,7 +38,7 @@ public class IPV4AddressValidator {
 
     private static boolean haveInvalidOctets(String ip) {
         String[] octets = getOctets(ip);
-        return Stream.of(octets).anyMatch(Octet::isValid);
+        return Stream.of(octets).anyMatch(Octet::isNotValid);
     }
 
     private static boolean isBroadcastAddress(String ip) {
@@ -51,8 +50,8 @@ public class IPV4AddressValidator {
     }
 
     static class Octet {
-        static boolean isValid(String octet) {
-            return Integer.parseInt(octet) > 255;
+        static boolean isNotValid(String octet) {
+            return Integer.parseInt(octet) < 0 || Integer.parseInt(octet) > 255;
         }
     }
 
