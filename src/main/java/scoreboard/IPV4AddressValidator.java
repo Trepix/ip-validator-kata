@@ -2,6 +2,8 @@ package scoreboard;
 
 import java.util.stream.Stream;
 
+import static scoreboard.IPV4AddressValidator.Number.isNumeric;
+
 public class IPV4AddressValidator {
 
     public static boolean isHostAssignable(String ip) {
@@ -15,8 +17,11 @@ public class IPV4AddressValidator {
     }
 
     private static boolean haveNotNaturalNumbers(String ip) {
-        return "-192.168.1.1".equals(ip) || "*.168.1.1".equals(ip);
+        String[] numbers = getOctets(ip);
+        return !(isNumeric(numbers[1])) || "-192.168.1.1".equals(ip);
+
     }
+
 
     private static boolean haveLeadingZeros(String ip) {
         String[] numbers = getOctets(ip);
@@ -54,6 +59,15 @@ public class IPV4AddressValidator {
     static class Number {
         static boolean hasLeadingZeros(String number) {
             return Integer.parseInt(number) != 0 && number.startsWith("0");
+        }
+
+        static boolean isNumeric(String number) {
+            try {
+                Integer.parseInt(number);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
         }
     }
 }

@@ -87,7 +87,7 @@ public class IPV4AddressValidatorTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "-192.168.1.1",
-            "*.168.1.1"
+            "192.*.1.1"
     })
     public void validate_IP_has_no_other_characters_than_numbers(String ip){
         boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
