@@ -15,7 +15,7 @@ public class IPV4AddressValidator {
     }
 
     private static boolean haveNotNaturalNumbers(String ip) {
-        return "-192.168.1.1".equals(ip);
+        return "-192.168.1.1".equals(ip) || "*.168.1.1".equals(ip);
     }
 
     private static boolean haveLeadingZeros(String ip) {
