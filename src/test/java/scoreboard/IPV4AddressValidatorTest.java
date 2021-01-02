@@ -21,4 +21,11 @@ public class IPV4AddressValidatorTest {
 
         assertThat(isValid, is(true));
     }
+
+    @Test
+    public void should_consider_as_invalid_a_network_IP() {
+        boolean isValid = IPV4AddressValidator.isHostAssignable("0.0.0.0");
+
+        assertThat(isValid, is(false));
+    }
 }
