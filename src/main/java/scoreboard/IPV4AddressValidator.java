@@ -3,6 +3,7 @@ package scoreboard;
 import java.util.stream.Stream;
 
 public class IPV4AddressValidator {
+
     public static boolean isHostAssignable(String ip) {
         if (notHaveFourOctets(ip)) return false;
         if (haveInvalidOctets(ip)) return false;
@@ -22,11 +23,7 @@ public class IPV4AddressValidator {
 
     private static boolean haveInvalidOctets(String ip) {
         String[] octets = getOctets(ip);
-        return Stream.of(octets).map(IPV4AddressValidator::isInvalidValidOctet).reduce(Boolean.FALSE, Boolean::logicalOr);
-    }
-
-    private static boolean isInvalidValidOctet(String octet) {
-        return Integer.parseInt(octet) > 255;
+        return Stream.of(octets).anyMatch(Octet::isValid);
     }
 
     private static boolean isBroadcastAddress(String ip) {
@@ -35,5 +32,11 @@ public class IPV4AddressValidator {
 
     private static boolean isNetworkAddress(String ip) {
         return ip.endsWith(".0");
+    }
+
+    static class Octet {
+        static boolean isValid(String octet) {
+            return Integer.parseInt(octet) > 255;
+        }
     }
 }
