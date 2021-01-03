@@ -48,6 +48,8 @@ public class IPV4AddressValidator {
         static boolean isNotValid(String octet) {
             boolean octetOnlyHasDigits = areDigits(octet);
             if (!octetOnlyHasDigits) return true;
+            boolean haveLeadingZeros = Number.hasLeadingZeros(octet);
+            if (haveLeadingZeros) return true;
             return Integer.parseInt(octet) < 0 || Integer.parseInt(octet) > 255;
         }
     }
