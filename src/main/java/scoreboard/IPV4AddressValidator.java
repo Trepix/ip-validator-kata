@@ -6,7 +6,6 @@ public class IPV4AddressValidator {
 
     public static boolean isHostAssignable(String ip) {
         if (haveNotFourOctets(ip)) return false;
-        if (notAllOctetsContainDigits(ip)) return false;
         if (haveInvalidOctets(ip)) return false;
         if (haveLeadingZeros(ip)) return false;
         if (isNetworkAddress(ip)) return false;
