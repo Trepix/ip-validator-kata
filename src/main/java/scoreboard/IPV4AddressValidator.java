@@ -52,6 +52,8 @@ public class IPV4AddressValidator {
 
     static class Octet {
         static boolean isNotValid(String octet) {
+            boolean octetOnlyHasDigits = areDigits(octet);
+            if (!octetOnlyHasDigits) return true;
             return Integer.parseInt(octet) < 0 || Integer.parseInt(octet) > 255;
         }
     }
