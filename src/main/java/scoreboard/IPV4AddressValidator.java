@@ -6,7 +6,7 @@ public class IPV4AddressValidator {
 
     public static boolean isHostAssignable(String ip) {
         if (haveNotFourOctets(ip)) return false;
-        if (haveNotNaturalNumbers(ip)) return false;
+        if (notAllOctetsContainDigits(ip)) return false;
         if (haveInvalidOctets(ip)) return false;
         if (haveLeadingZeros(ip)) return false;
         if (isNetworkAddress(ip)) return false;
@@ -14,11 +14,14 @@ public class IPV4AddressValidator {
         return true;
     }
 
-    private static boolean haveNotNaturalNumbers(String ip) {
+    private static boolean notAllOctetsContainDigits(String ip) {
         String[] numbers = getOctets(ip);
-        return !Stream.of(numbers).allMatch(Number::isNumeric);
+        return !Stream.of(numbers).allMatch(IPV4AddressValidator::areDigits);
     }
 
+    private static boolean areDigits(String number) {
+        return number.chars().allMatch(Character::isDigit);
+    }
 
     private static boolean haveLeadingZeros(String ip) {
         String[] numbers = getOctets(ip);
@@ -58,13 +61,5 @@ public class IPV4AddressValidator {
             return Integer.parseInt(number) != 0 && number.startsWith("0");
         }
 
-        static boolean isNumeric(String number) {
-            try {
-                Integer.parseInt(number);
-                return true;
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        }
     }
 }
