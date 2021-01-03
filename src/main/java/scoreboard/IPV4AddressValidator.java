@@ -23,17 +23,11 @@ public class IPV4AddressValidator {
 
     private static boolean haveInvalidOctets(String ip) {
         String[] octets = getOctets(ip);
-        boolean isNotValidOctet = Stream.of(octets).anyMatch(Octet::isNotValid);
-        if (isNotValidOctet) return true;
-        return haveLeadingZeros(octets);
+        return Stream.of(octets).anyMatch(Octet::isNotValid);
     }
 
     private static boolean areDigits(String number) {
         return number.chars().allMatch(Character::isDigit);
-    }
-
-    private static boolean haveLeadingZeros(String[] numbers) {
-        return Stream.of(numbers).anyMatch(Number::hasLeadingZeros);
     }
 
     private static boolean isBroadcastAddress(String ip) {
