@@ -2,8 +2,6 @@ package scoreboard;
 
 import java.util.stream.Stream;
 
-import static scoreboard.IPV4AddressValidator.Number.isNumeric;
-
 public class IPV4AddressValidator {
 
     public static boolean isHostAssignable(String ip) {
@@ -18,7 +16,7 @@ public class IPV4AddressValidator {
 
     private static boolean haveNotNaturalNumbers(String ip) {
         String[] numbers = getOctets(ip);
-        return !(isNumeric(numbers[0]) && isNumeric(numbers[1]) && isNumeric(numbers[2]) && isNumeric(numbers[3]));
+        return !Stream.of(numbers).allMatch(Number::isNumeric);
     }
 
 
