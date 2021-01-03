@@ -40,6 +40,8 @@ public class IPV4AddressValidator {
         String[] octets = getOctets(ip);
         boolean notAllOctetsHaveDigits = notAllOctetsContainDigits(ip);
         if (notAllOctetsHaveDigits) return true;
+        boolean haveLeadingZeros = haveLeadingZeros(ip);
+        if (haveLeadingZeros) return true;
         return Stream.of(octets).anyMatch(Octet::isNotValid);
     }
 
