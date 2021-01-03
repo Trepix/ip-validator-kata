@@ -23,15 +23,9 @@ public class IPV4AddressValidator {
 
     private static boolean haveInvalidOctets(String ip) {
         String[] octets = getOctets(ip);
-        boolean notAllOctetsHaveDigits = notAllOctetsContainDigits(octets);
-        if (notAllOctetsHaveDigits) return true;
-        boolean haveLeadingZeros = haveLeadingZeros(octets);
-        if (haveLeadingZeros) return true;
-        return Stream.of(octets).anyMatch(Octet::isNotValid);
-    }
-
-    private static boolean notAllOctetsContainDigits(String[] numbers) {
-        return !Stream.of(numbers).allMatch(IPV4AddressValidator::areDigits);
+        boolean isNotValidOctet = Stream.of(octets).anyMatch(Octet::isNotValid);
+        if (isNotValidOctet) return true;
+        return haveLeadingZeros(octets);
     }
 
     private static boolean areDigits(String number) {
