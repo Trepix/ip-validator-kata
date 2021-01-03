@@ -12,20 +12,6 @@ public class IPV4AddressValidator {
         return true;
     }
 
-    private static boolean notAllOctetsContainDigits(String ip) {
-        String[] numbers = getOctets(ip);
-        return !Stream.of(numbers).allMatch(IPV4AddressValidator::areDigits);
-    }
-
-    private static boolean areDigits(String number) {
-        return number.chars().allMatch(Character::isDigit);
-    }
-
-    private static boolean haveLeadingZeros(String ip) {
-        String[] numbers = getOctets(ip);
-        return Stream.of(numbers).anyMatch(Number::hasLeadingZeros);
-    }
-
     private static boolean haveNotFourOctets(String ip) {
         String[] octets = getOctets(ip);
         return octets.length != 4;
@@ -37,11 +23,23 @@ public class IPV4AddressValidator {
 
     private static boolean haveInvalidOctets(String ip) {
         String[] octets = getOctets(ip);
-        boolean notAllOctetsHaveDigits = notAllOctetsContainDigits(ip);
+        boolean notAllOctetsHaveDigits = notAllOctetsContainDigits(octets);
         if (notAllOctetsHaveDigits) return true;
-        boolean haveLeadingZeros = haveLeadingZeros(ip);
+        boolean haveLeadingZeros = haveLeadingZeros(octets);
         if (haveLeadingZeros) return true;
         return Stream.of(octets).anyMatch(Octet::isNotValid);
+    }
+
+    private static boolean notAllOctetsContainDigits(String[] numbers) {
+        return !Stream.of(numbers).allMatch(IPV4AddressValidator::areDigits);
+    }
+
+    private static boolean areDigits(String number) {
+        return number.chars().allMatch(Character::isDigit);
+    }
+
+    private static boolean haveLeadingZeros(String[] numbers) {
+        return Stream.of(numbers).anyMatch(Number::hasLeadingZeros);
     }
 
     private static boolean isBroadcastAddress(String ip) {
