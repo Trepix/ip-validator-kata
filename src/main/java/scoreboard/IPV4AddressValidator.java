@@ -39,6 +39,8 @@ public class IPV4AddressValidator {
 
     private static boolean haveInvalidOctets(String ip) {
         String[] octets = getOctets(ip);
+        boolean notAllOctetsHaveDigits = notAllOctetsContainDigits(ip);
+        if (notAllOctetsHaveDigits) return true;
         return Stream.of(octets).anyMatch(Octet::isNotValid);
     }
 
