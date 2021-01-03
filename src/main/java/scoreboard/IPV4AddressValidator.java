@@ -26,10 +26,6 @@ public class IPV4AddressValidator {
         return Stream.of(octets).anyMatch(Octet::isNotValid);
     }
 
-    private static boolean areDigits(String number) {
-        return number.chars().allMatch(Character::isDigit);
-    }
-
     private static boolean isBroadcastAddress(String ip) {
         return ip.endsWith(".255");
     }
@@ -40,18 +36,17 @@ public class IPV4AddressValidator {
 
     static class Octet {
         static boolean isNotValid(String octet) {
-            boolean octetOnlyHasDigits = areDigits(octet);
-            if (!octetOnlyHasDigits) return true;
-            boolean haveLeadingZeros = Number.hasLeadingZeros(octet);
-            if (haveLeadingZeros) return true;
+            if (notAllAreDigits(octet)) return true;
+            if (hasLeadingZeros(octet)) return true;
             return Integer.parseInt(octet) < 0 || Integer.parseInt(octet) > 255;
         }
     }
 
-    static class Number {
-        static boolean hasLeadingZeros(String number) {
-            return Integer.parseInt(number) != 0 && number.startsWith("0");
-        }
+    private static boolean notAllAreDigits(String number) {
+        return !number.chars().allMatch(Character::isDigit);
+    }
 
+    static boolean hasLeadingZeros(String number) {
+        return Integer.parseInt(number) != 0 && number.startsWith("0");
     }
 }
