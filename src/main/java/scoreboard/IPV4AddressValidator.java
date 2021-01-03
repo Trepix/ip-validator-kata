@@ -5,14 +5,14 @@ import java.util.stream.Stream;
 public class IPV4AddressValidator {
 
     public static boolean isHostAssignable(String ip) {
-        if (haveNotFourOctets(ip)) return false;
-        if (haveInvalidOctets(ip)) return false;
+        if (hasNotFourOctets(ip)) return false;
+        if (hasInvalidOctets(ip)) return false;
         if (isNetworkAddress(ip)) return false;
         if (isBroadcastAddress(ip)) return false;
         return true;
     }
 
-    private static boolean haveNotFourOctets(String ip) {
+    private static boolean hasNotFourOctets(String ip) {
         String[] octets = getOctets(ip);
         return octets.length != 4;
     }
@@ -21,7 +21,7 @@ public class IPV4AddressValidator {
         return ip.split("\\.");
     }
 
-    private static boolean haveInvalidOctets(String ip) {
+    private static boolean hasInvalidOctets(String ip) {
         String[] octets = getOctets(ip);
         return Stream.of(octets).anyMatch(Octet::isNotValid);
     }
@@ -36,13 +36,13 @@ public class IPV4AddressValidator {
 
     static class Octet {
         static boolean isNotValid(String octet) {
-            if (notAllAreDigits(octet)) return true;
+            if (notOnlyContainDigits(octet)) return true;
             if (hasLeadingZeros(octet)) return true;
             return Integer.parseInt(octet) < 0 || Integer.parseInt(octet) > 255;
         }
     }
 
-    private static boolean notAllAreDigits(String number) {
+    private static boolean notOnlyContainDigits(String number) {
         return !number.chars().allMatch(Character::isDigit);
     }
 
