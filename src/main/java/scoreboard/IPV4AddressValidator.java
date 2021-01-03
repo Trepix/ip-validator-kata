@@ -18,7 +18,7 @@ public class IPV4AddressValidator {
 
     private static boolean haveNotNaturalNumbers(String ip) {
         String[] numbers = getOctets(ip);
-        return !(isNumeric(numbers[1]));
+        return !(isNumeric(numbers[1]) && isNumeric(numbers[2]));
     }
 
 
