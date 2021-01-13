@@ -1,7 +1,5 @@
 package scoreboard;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -18,7 +16,7 @@ public class IPV4AddressValidatorTest {
             "127.0.0.1"
     })
     public void should_consider_as_valid_a_host_assignable_IP(String ip) {
-        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
+        boolean isValid = IPV4AddressValidator.isAssignableHost(ip);
 
         assertThat(isValid, is(true));
     }
@@ -29,7 +27,7 @@ public class IPV4AddressValidatorTest {
             "255.255.255.0"
     })
     public void should_consider_as_invalid_a_network_IP(String ip) {
-        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
+        boolean isValid = IPV4AddressValidator.isAssignableHost(ip);
 
         assertThat(isValid, is(false));
     }
@@ -40,7 +38,7 @@ public class IPV4AddressValidatorTest {
             "255.255.255.255",
     })
     public void should_consider_as_invalid_a_broadcast_IP(String ip) {
-        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
+        boolean isValid = IPV4AddressValidator.isAssignableHost(ip);
 
         assertThat(isValid, is(false));
     }
@@ -52,8 +50,8 @@ public class IPV4AddressValidatorTest {
             "1.1.1.1.1",
             "255.255.255.1.254",
     })
-    public void should_consider_as_invalid_an_IP_with_not_four_octets(String ip) {
-        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
+    public void should_consider_as_invalid_an_IP_without_four_octets(String ip) {
+        boolean isValid = IPV4AddressValidator.isAssignableHost(ip);
 
         assertThat(isValid, is(false));
     }
@@ -66,7 +64,7 @@ public class IPV4AddressValidatorTest {
             "1.1.1.256",
     })
     public void should_check_IP_has_valid_octets(String ip) {
-        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
+        boolean isValid = IPV4AddressValidator.isAssignableHost(ip);
 
         assertThat(isValid, is(false));
     }
@@ -79,7 +77,7 @@ public class IPV4AddressValidatorTest {
             "192.168.0.01"
     })
     public void should_check_IP_has_no_leading_zeros(String ip) {
-        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
+        boolean isValid = IPV4AddressValidator.isAssignableHost(ip);
 
         assertThat(isValid, is(false));
     }
@@ -94,7 +92,7 @@ public class IPV4AddressValidatorTest {
             "-192.168.1.1"
     })
     public void validate_IP_has_no_other_characters_than_numbers(String ip){
-        boolean isValid = IPV4AddressValidator.isHostAssignable(ip);
+        boolean isValid = IPV4AddressValidator.isAssignableHost(ip);
 
         assertThat(isValid, is(false));
     }

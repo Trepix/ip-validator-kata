@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 public class IPV4AddressValidator {
 
-    public static boolean isHostAssignable(String ip) {
+    public static boolean isAssignableHost(String ip) {
         if (hasNotFourOctets(ip)) return false;
         if (hasInvalidOctets(ip)) return false;
         if (isNetworkAddress(ip)) return false;
